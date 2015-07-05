@@ -19,6 +19,10 @@ open Suave.Logging
 
 let app : WebPart = 
     choose [
-       GET >>= choose [ path "/" >>= file "index.html"; browseHome ];
+       GET >>= choose [ path "/" 
+                            >>= Writers.setMimeType "text/html"
+                            >>= file "index.html"; 
+                        browseHome 
+                      ];
        NOT_FOUND "Found no handlers." 
     ]
